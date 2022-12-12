@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  node_backend:
+    container_name: node_backend_container
+    image: node:16.15.1-alpine
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    expose:
+    - "3001"
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+  node_frontend:
+    container_name: node_frontend_container
+    image: node:18-alpine
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+    environment: 
+    - NODE_ENV=production
+    expose:
+    - "3000"
+    ports:
+      - "3000:3000"
+volumes:
+  data: {}
