@@ -9,18 +9,30 @@ const dbConnectionInfo = {
   port: process.env.database_port,
 };
 
+const pool = new Pool(dbConnectionInfo);
+
 async function connect() {
-  const pool = new Pool(dbConnectionInfo);
-  pool.connect((err, client, done) => {
+  pool.connect((err) => {
     if (err) {
-      console.error("Error connecting: ", err.stack);
-      return;
+      return err;
     }
-    console.log("Connected to postgres!");
   });
   return pool;
 }
 
+async function query(text, params) {
+  pool.query(text, params, (err, res) => {
+    if (err) {
+      console.log("Error executing query.", err.stack);
+      return err;
+    }
+    console.log("res = " + res);
+    return res;
+  });
+}
+
 module.exports = {
   connect,
+  pool,
+  query,
 };
