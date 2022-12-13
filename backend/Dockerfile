@@ -9,5 +9,5 @@ COPY . /backend
 FROM build as test
 CMD ["npm", "run", "test"]
 
-FROM build
+FROM build as dev
 CMD ["npm", "run", "dev"]

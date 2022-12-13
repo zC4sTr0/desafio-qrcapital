@@ -26,7 +26,6 @@ async function query(text, params) {
       console.log("Error executing query.", err.stack);
       return err;
     }
-    console.log("res = " + res);
     return res;
   });
 }
