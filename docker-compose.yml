@@ -12,6 +12,8 @@ services:
       - "3001:3001"
     environment:
       - PORT=3001
+    depends_on:
+      - postgres
   node_frontend:
     container_name: node_frontend_container
     image: node:18-alpine
@@ -24,5 +26,19 @@ services:
     - "3000"
     ports:
       - "3000:3000"
+  postgres:
+    container_name: postgres
+    image: postgres:14.4-alpine
+    environment:
+      - POSTGRES_USER=QR_USER
+      - POSTGRES_PASSWORD=alwaysLearning 
+      - POSTGRES_DB=QR_DB
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+    ports:
+      - "5432:5432"
+      - "5433:5433"
+    volumes:
+      - ./data:/var/lib/postgresql/data
 volumes:
   data: {}
