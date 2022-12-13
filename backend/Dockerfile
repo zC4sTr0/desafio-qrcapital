@@ -1,10 +1,13 @@
 #backend
-FROM node:16.15.1-alpine
+FROM node:16.15.1-alpine as build
 RUN npm install -g npm@latest
-RUN npm install -g nodemon
 WORKDIR /backend
 COPY package.json /backend/package.json
 RUN npm install
 COPY . /backend
-EXPOSE 3001
-CMD ["npm", "start"]
+
+FROM build as test
+CMD ["npm", "run", "test"]
+
+FROM build
+CMD ["npm", "run", "dev"]
