@@ -21,12 +21,15 @@ async function connect() {
 }
 
 async function query(text, params) {
-  pool.query(text, params, (err, res) => {
-    if (err) {
-      console.log("Error executing query.", err.stack);
-      return err;
-    }
-    return res;
+  return new Promise((resolve, reject) => {
+    pool
+      .query(text, params)
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((err) => {
+        reject(err);
+      });
   });
 }
 

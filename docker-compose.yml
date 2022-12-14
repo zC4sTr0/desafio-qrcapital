@@ -6,7 +6,7 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-      target: dev
+      target: test
     expose:
     - "3001"
     ports:
