@@ -1,11 +1,18 @@
-import "./App.css";
+import Login from "./pages/login.js";
+import Register from "./pages/register.js";
+import { BrowserRouter, Route, Link, Routes } from "react-router-dom";
+
+var isLogined = false;
 
 function App() {
   return (
-    <div className="App">
-      <h1 className="text-3x1 font-bold underline">
-        Hello with tailwindcss!!!
-      </h1>
+    <div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" exact element={<Login />}></Route>
+          <Route path="/register" element={<Register />}></Route>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
