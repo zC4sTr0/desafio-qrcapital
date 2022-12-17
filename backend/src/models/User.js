@@ -18,6 +18,14 @@ class User {
     }
   }
 
+  async compareUserPassword(password) {
+    try {
+      return await bcrypt.compare(this.password, password);
+    } catch (err) {
+      return err;
+    }
+  }
+
   static create(user) {
     return new User(user);
   }
