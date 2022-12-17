@@ -69,14 +69,13 @@ const Login = () => {
                     or
                   </p>
 
-                  <a href="register" class="flex-2 underline">
-                    Create an Account
-                  </a>
+                  <Link to={"/register"} className="underline flex-2">
+                    Create New Account
+                  </Link>
                 </div>
               </form>
             </div>
           </div>
-          <Link to={"/register"}> ir para registrar </Link>
         </form>
       </div>
     </div>
