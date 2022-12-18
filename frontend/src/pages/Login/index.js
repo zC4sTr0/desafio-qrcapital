@@ -1,10 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import LoginForm from "../../components/LoginForm";
+import sendLoginAttempt from "../../api/login";
 
-const onUserLogin = (data) => {
-  console.log(data);
-  return true;
+const onLoginFormSubmit = async (data) => {
+  console.log("User just tried to login with: ", data);
+  var response = await sendLoginAttempt(data);
+  console.log(response);
+  return response;
 };
 
 const Login = () => {
@@ -15,7 +18,7 @@ const Login = () => {
           <img src="/img/qrcapital_logo.png" />
         </div>
 
-        <LoginForm onLoginFormSubmit={onUserLogin} />
+        <LoginForm onLoginFormSubmit={onLoginFormSubmit} />
 
         <div className="sm:flex sm:flex-wrap mt-8 sm:mb-4 text-sm text-center">
           <Link to={"/forgot-password"} className="flex-2 underline">

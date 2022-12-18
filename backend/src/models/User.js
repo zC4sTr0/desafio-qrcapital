@@ -5,8 +5,8 @@ class User {
   constructor(user) {
     this.username = user.username;
     this.password = user.password;
-    this.email = user.email;
-    this.name = user.name;
+    if (user.email) this.email = user.email;
+    if (user.name) this.name = user.name;
   }
 
   async cryptUserPassword() {
@@ -32,19 +32,20 @@ class User {
       const query = `SELECT * FROM users WHERE username = $1`;
       const params = [this.username];
       const result = await db.query(query, params);
+
       if (result.rows.length > 0) {
         const user = result.rows[0];
         const isMatch = await this.compareUserPassword(user.password);
         if (isMatch) {
           return user;
         } else {
-          return new Error({
+          return {
             message: "Wrong username and password combination",
             status: 401,
-          });
+          };
         }
       } else {
-        return new Error({ message: "Invalid username", status: 401 });
+        return { message: "Invalid username", status: 401 };
       }
     } catch (err) {
       console.log("Error while login" + err);

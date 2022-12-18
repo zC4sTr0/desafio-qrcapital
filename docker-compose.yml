@@ -2,11 +2,10 @@ version: '3.8'
 services:
   node_backend:
     container_name: node_backend_container
-    image: node:16.15.1-alpine
     build:
       context: ./backend
       dockerfile: Dockerfile
-      target: test
+      target: dev
     expose:
     - "3001"
     ports:
@@ -17,7 +16,6 @@ services:
       - postgres
   node_frontend:
     container_name: node_frontend_container
-    image: node:18-alpine
     build: 
       context: ./frontend
       dockerfile: Dockerfile

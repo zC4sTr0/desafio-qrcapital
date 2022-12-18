@@ -4,21 +4,19 @@ const LoginForm = ({ onLoginFormSubmit }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    var result_login = onLoginFormSubmit({ username, password });
+    var result_login = await onLoginFormSubmit({ username, password });
     if (result_login == true) {
-      console.log("Login success");
+      console.log(result_login);
     }
   };
 
   const onUsernameChange = (e) => {
-    console.log(e.target.value);
     setUsername(e.target.value);
   };
 
   const onPasswordChange = (e) => {
-    console.log(e.target.value);
     setPassword(e.target.value);
   };
 

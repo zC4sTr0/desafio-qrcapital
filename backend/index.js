@@ -1,7 +1,27 @@
 const express = require("express");
 const app = express();
-const db = require("./src/database/database");
+const bodyParser = require("body-parser");
+const cors = require("cors");
 require("dotenv").config();
+
+// Routes for user login and registration
+const loginRoute = require("./src/routes/login");
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+);
+app.use(bodyParser.json());
+
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+    optionsSuccessStatus: 200,
+  })
+);
+
+app.use(loginRoute);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
@@ -9,5 +29,4 @@ app.get("/", (req, res) => {
 
 app.listen(process.env.PORT, () => {
   console.log("Example app listening on port 3001!");
-  db.connect();
 });
