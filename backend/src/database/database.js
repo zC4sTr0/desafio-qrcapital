@@ -11,30 +11,17 @@ const dbConnectionInfo = {
 
 const pool = new Pool(dbConnectionInfo);
 
-async function connect() {
-  pool.connect((err) => {
-    if (err) {
-      return err;
-    }
-  });
-  return pool;
-}
-
-async function query(text, params) {
-  return new Promise((resolve, reject) => {
-    pool
-      .query(text, params)
-      .then((res) => {
-        resolve(res);
-      })
-      .catch((err) => {
-        reject(err);
-      });
-  });
-}
+const query = async (text, params) => {
+  const client = await pool.connect();
+  try {
+    const res = await client.query(text, params);
+    return res;
+  } finally {
+    client.release();
+  }
+};
 
 module.exports = {
-  connect,
-  pool,
   query,
+  pool,
 };

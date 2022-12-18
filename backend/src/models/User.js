@@ -15,13 +15,39 @@ class User {
       this.password = await bcrypt.hash(this.password, salt);
     } catch (err) {
       console.log("Error while hashing the password" + err);
+      return err;
     }
   }
 
-  async compareUserPassword(password) {
+  async compareUserPassword(encryptedPassword) {
     try {
-      return await bcrypt.compare(this.password, password);
+      return await bcrypt.compare(this.password, encryptedPassword);
     } catch (err) {
+      return false;
+    }
+  }
+
+  async login() {
+    try {
+      const query = `SELECT * FROM users WHERE username = $1`;
+      const params = [this.username];
+      const result = await db.query(query, params);
+      if (result.rows.length > 0) {
+        const user = result.rows[0];
+        const isMatch = await this.compareUserPassword(user.password);
+        if (isMatch) {
+          return user;
+        } else {
+          return new Error({
+            message: "Wrong username and password combination",
+            status: 401,
+          });
+        }
+      } else {
+        return new Error({ message: "Invalid username", status: 401 });
+      }
+    } catch (err) {
+      console.log("Error while login" + err);
       return err;
     }
   }
@@ -37,8 +63,12 @@ class User {
         VALUES (nextval('users_id_seq'), $1, $2, $3, $4) RETURNING *;
         `;
     const params = [this.username, this.password, this.email, this.name];
-    const result = await db.query(query, params);
-    return result.rows[0];
+    try {
+      const result = await db.query(query, params);
+      return result.rows[0];
+    } catch (err) {
+      return err;
+    }
   }
 }
 
