@@ -1,4 +1,3 @@
-const { Pool } = require("pg");
 const db = require("../../src/database/database");
 
 const dbConnectionInfo = {
@@ -11,7 +10,7 @@ const dbConnectionInfo = {
 
 describe("Database", () => {
   it("should connect to the database", async () => {
-    const testConnection = await db.connect();
+    const testConnection = await db.pool.connect();
     expect(testConnection).not.toBeInstanceOf(Error);
   });
 
