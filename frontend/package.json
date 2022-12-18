@@ -1,7 +1,29 @@
 {
-  "name": "frontend",
-  "version": "0.1.0",
-  "private": true,
+  "name": "qrcapital-challenge-frontend",
+  "version": "0.1.1",
+  "description": "frontend to support the QR Capital fullstack developer challenge",
+  "author": {
+    "name": "Gabriel Castro",
+    "email": "gabriel.sodre@aluno.ufop.edu.br",
+    "url": "https://www.github.com/zC4sTr0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zC4sTr0/desafio-qr-capital-fullstack.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zC4sTr0/desafio-qr-capital-fullstack/issues",
+    "email": "gabriel.sodre@aluno.ufop.edu.br"
+  },
+  "private": false,
+  "keywords": [
+    "QRCapital",
+    "NodeJS",
+    "GIT",
+    "Bitcoin",
+    "Crypto",
+    "express"
+  ],
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",

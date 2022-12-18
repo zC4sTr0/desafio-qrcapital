@@ -1,15 +1,34 @@
 {
-  "name": "backend",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "qrcapital-challenge-backend",
+  "version": "0.1.1",
+  "description": "backend to support the QR Capital fullstack developer challenge",
+  "author": {
+    "name": "Gabriel Castro",
+    "email": "gabriel.sodre@aluno.ufop.edu.br",
+    "url": "https://www.github.com/zC4sTr0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zC4sTr0/desafio-qr-capital-fullstack.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zC4sTr0/desafio-qr-capital-fullstack/issues",
+    "email": "gabriel.sodre@aluno.ufop.edu.br"
+  },
+  "private": false,
+  "keywords": [
+    "QRCapital",
+    "NodeJS",
+    "GIT",
+    "Bitcoin",
+    "Crypto",
+    "express"
+  ],
   "scripts": {
     "test": "jest --verbose",
     "start": "node index.js",
     "dev": "node index.js"
   },
-  "keywords": [],
-  "author": "",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.0",
