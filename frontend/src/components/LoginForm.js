@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 
 const LoginForm = ({ onLoginFormSubmit }) => {
   const [username, setUsername] = useState("");
@@ -9,7 +8,7 @@ const LoginForm = ({ onLoginFormSubmit }) => {
     e.preventDefault();
     var result_login = onLoginFormSubmit({ username, password });
     if (result_login == true) {
-      //  window.location.href = "/dashboard";
+      console.log("Login success");
     }
   };
 
@@ -24,15 +23,8 @@ const LoginForm = ({ onLoginFormSubmit }) => {
   };
 
   return (
-    <form
-      className="bg-white shadow-xl shadow-2xl lg:shadow-lg rounded px-10 pt-6 pb-8 mb-4"
-      onSubmit={handleSubmit}
-    >
+    <form onSubmit={handleSubmit}>
       <div className="container">
-        <div className="flex justify-center items-center mt-5 ">
-          <img src="/img/qrcapital_logo.png" />
-        </div>
-
         <div>
           <div className="relative my-8">
             <input
@@ -80,20 +72,6 @@ const LoginForm = ({ onLoginFormSubmit }) => {
           >
             Login
           </button>
-        </div>
-
-        <div className="sm:flex sm:flex-wrap mt-8 sm:mb-4 text-sm text-center">
-          <a href="forgot-password" className="flex-2 underline">
-            Forgot password?
-          </a>
-
-          <p className="flex-1 text-gray-500 text-md mx-4 my-1 sm:my-auto">
-            or
-          </p>
-
-          <Link to={"/register"} className="underline flex-2">
-            Create New Account
-          </Link>
         </div>
       </div>
     </form>
