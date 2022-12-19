@@ -7,12 +7,9 @@ const LoginForm = ({ onLoginFormSubmit }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     var result_login = await onLoginFormSubmit({ username, password });
-    if (result_login == true) {
-      console.log(result_login);
-    }
   };
 
-  const onUsernameChange = (e) => {
+  const handleUsernameChange = (e) => {
     setUsername(e.target.value);
   };
 
@@ -30,7 +27,7 @@ const LoginForm = ({ onLoginFormSubmit }) => {
               id="username"
               name="username"
               value={username}
-              onChange={onUsernameChange}
+              onChange={handleUsernameChange}
               className="block px-2.5 pb-2.5 pt-4 w-full text-lg border-2 text-gray-900 bg-transparent rounded-lg border-gray-300 appearance-none dark:text-white dark:border-green-600 dark:focus:border-blue-500 focus:outline-1 focus:ring-0 focus:border-blue-900 peer"
               placeholder=" "
               required
