@@ -1,10 +1,25 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import LoginForm from "../../components/LoginForm";
+import InputLabel from "../../components/InputLabel";
 import sendLoginAttempt from "../../api/login";
 
 const Login = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    var result_login = await onLoginFormSubmit({ username, password });
+  };
+
+  const onUsernameChange = (e) => {
+    setUsername(e.target.value);
+  };
+
+  const onPasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
 
   const onLoginFormSubmit = async (data) => {
     var retorno_api = await sendLoginAttempt(data);
@@ -24,11 +39,41 @@ const Login = () => {
           <img src="/img/qrcapital_logo.png" />
         </div>
 
-        <LoginForm onLoginFormSubmit={onLoginFormSubmit} />
+        <form onSubmit={handleSubmit}>
+          <div className="">
+            <InputLabel
+              labelName="Username"
+              type="text"
+              id="username"
+              name="username"
+              value={username}
+              onChange={onUsernameChange}
+            ></InputLabel>
+
+            <InputLabel
+              labelName="Password"
+              type="password"
+              id="password"
+              name="password"
+              value={password}
+              onChange={onPasswordChange}
+            ></InputLabel>
+
+            <button
+              type="submit"
+              className="w-full py-3 mt-5 bg-gray-800 rounded-sm
+                    font-medium text-white uppercase
+                    focus:outline-none hover:bg-gray-600 hover:shadow-none"
+            >
+              Login
+            </button>
+          </div>
+        </form>
+
         {errorMessage != "" && (
           <p
             id="outlined_error_help"
-            class="mt-2 font-bold text-sm text-red-400 dark:text-red-400"
+            className="mt-2 font-bold text-sm text-red-400 dark:text-red-400"
           >
             {errorMessage}
           </p>

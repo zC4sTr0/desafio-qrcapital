@@ -1,5 +1,5 @@
-import Login from "./pages/Login/index";
-import Register from "./pages/Register/register";
+import Login from "./pages/Login/LoginPage";
+import Register from "./pages/Register/RegisterPage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 var isLogined = false;

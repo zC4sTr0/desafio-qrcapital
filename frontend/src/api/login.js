@@ -1,18 +1,16 @@
 import axios from "axios";
 
 async function sendLoginAttempt(credentials) {
-  var result = undefined;
+  var return_Login;
   await axios
     .post("http://localhost:3001/login", credentials)
     .then((response) => {
-      console.log("respon3se: ", response);
+      return_Login = response;
     })
     .catch((error) => {
-      console.log("error: ", error);
-      result = error;
+      return_Login = error;
     });
-
-  return result;
+  return return_Login;
 }
 
 export default sendLoginAttempt;
