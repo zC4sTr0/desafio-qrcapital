@@ -4,9 +4,15 @@ const bcrypt = require("bcrypt");
 class User {
   constructor(user) {
     this.username = user.username;
-    this.password = user.password;
-    if (user.email) this.email = user.email;
-    if (user.name) this.name = user.name;
+    if (user.password) {
+      this.password = user.password;
+    }
+    if (user.email) {
+      this.email = user.email;
+    }
+    if (user.name) {
+      this.name = user.name;
+    }
   }
 
   async cryptUserPassword() {
@@ -69,6 +75,29 @@ class User {
       return result.rows[0];
     } catch (err) {
       return err;
+    }
+  }
+  //check if username already exists
+  static async checkUsernameAvaiable(username) {
+    const query = `SELECT * FROM users WHERE username = $1`;
+    const params = [username];
+    const result = await db.query(query, params);
+    if (result.rows.length > 0) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  //check if email already exists
+  static async checkEmailAvaiable(email) {
+    const query = `SELECT * FROM users WHERE email = $1`;
+    const params = [email];
+    const result = await db.query(query, params);
+    if (result.rows.length > 0) {
+      return false;
+    } else {
+      return true;
     }
   }
 }

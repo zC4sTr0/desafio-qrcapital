@@ -5,7 +5,9 @@ const cors = require("cors");
 require("dotenv").config();
 
 // Routes for user login and registration
-const loginRoute = require("./src/routes/login");
+const loginRoute = require("./src/routes/loginRoute");
+const registerRoute = require("./src/routes/registerRoute");
+
 app.use(
   bodyParser.urlencoded({
     extended: true,
@@ -22,6 +24,7 @@ app.use(
 );
 
 app.use(loginRoute);
+app.use(registerRoute);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");

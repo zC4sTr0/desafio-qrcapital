@@ -1,8 +1,7 @@
 import Login from "./pages/Login/LoginPage";
 import Register from "./pages/Register/RegisterPage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-
-var isLogined = false;
+import Dashboard from "./pages/Dashboard/DashboardPage";
 
 function App() {
   return (
@@ -11,6 +10,7 @@ function App() {
         <Routes>
           <Route path="/" exact element={<Login />}></Route>
           <Route path="/register" element={<Register />}></Route>
+          <Route path="/dashboard" element={<Dashboard />}></Route>
         </Routes>
       </BrowserRouter>
     </div>
