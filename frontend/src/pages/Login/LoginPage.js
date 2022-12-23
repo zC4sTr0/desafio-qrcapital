@@ -1,16 +1,25 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import InputLabel from "../../components/InputLabel";
-import sendLoginAttempt from "../../api/login";
+import { loginUser } from "../../api/user";
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    var result_login = await onLoginFormSubmit({ username, password });
+    var retorno_api = await loginUser({ username, password });
+    if (retorno_api.status === 401) {
+      setErrorMessage(retorno_api.data);
+    }
+    if (retorno_api.status === 200) {
+      navigate("/dashboard");
+    }
+    return retorno_api;
   };
 
   const onUsernameChange = (e) => {
@@ -21,22 +30,11 @@ const Login = () => {
     setPassword(e.target.value);
   };
 
-  const onLoginFormSubmit = async (data) => {
-    var retorno_api = await sendLoginAttempt(data);
-    if (retorno_api.response.status === 401) {
-      setErrorMessage(retorno_api.response.data);
-    }
-    if (retorno_api.response.status === 200) {
-      // Login successful
-    }
-    return retorno_api;
-  };
-
   return (
     <div className="h-screen bg-gradient-to-r from-neutral-300 via-gray-200 to-slate-200 flex justify-center items-center w-full">
       <div className="bg-white shadow-xl shadow-2xl lg:shadow-lg rounded px-10 pt-6 pb-8 mb-4">
         <div className="flex justify-center items-center mt-5 ">
-          <img src="/img/qrcapital_logo.png" />
+          <img src="/img/qrcapital_logo.png" alt="QR LOGO" />
         </div>
 
         <form onSubmit={handleSubmit}>
@@ -58,7 +56,14 @@ const Login = () => {
               value={password}
               onChange={onPasswordChange}
             ></InputLabel>
-
+            {errorMessage !== "" && (
+              <p
+                id="outlined_error_help"
+                className="mt-2 font-bold text-sm text-red-400 dark:text-red-400"
+              >
+                {errorMessage}
+              </p>
+            )}
             <button
               type="submit"
               className="w-full py-3 mt-5 bg-gray-800 rounded-sm
@@ -69,15 +74,6 @@ const Login = () => {
             </button>
           </div>
         </form>
-
-        {errorMessage != "" && (
-          <p
-            id="outlined_error_help"
-            className="mt-2 font-bold text-sm text-red-400 dark:text-red-400"
-          >
-            {errorMessage}
-          </p>
-        )}
 
         <div className="sm:flex sm:flex-wrap mt-8 sm:mb-4 text-sm text-center">
           <Link to={"/forgot-password"} className="flex-2 underline">
