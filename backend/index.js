@@ -8,6 +8,8 @@ require("dotenv").config();
 const loginRoute = require("./src/routes/loginRoute");
 const registerRoute = require("./src/routes/registerRoute");
 
+const notFoundHandler = require("./src/middlewares/notFoundHandler");
+
 app.use(
   bodyParser.urlencoded({
     extended: true,
@@ -30,6 +32,11 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
+// middleware for handling 404 requests
+app.use(notFoundHandler);
+
 app.listen(process.env.PORT, () => {
   console.log("Example app listening on port 3001!");
 });
+
+module.exports = app;
