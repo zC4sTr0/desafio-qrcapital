@@ -1,7 +1,8 @@
 const express = require("express");
 const app = express();
-const bodyParser = require("body-parser");
 const cors = require("cors");
+const corsOptions = require("./src/config/corsOptions");
+
 require("dotenv").config();
 
 // Routes for user login and registration
@@ -10,27 +11,17 @@ const registerRoute = require("./src/routes/registerRoute");
 
 const notFoundHandler = require("./src/middlewares/notFoundHandler");
 
+app.use(cors(corsOptions));
+
 app.use(
-  bodyParser.urlencoded({
+  express.urlencoded({
     extended: true,
   })
 );
-app.use(bodyParser.json());
-
-app.use(
-  cors({
-    origin: "http://localhost:3000",
-    credentials: true,
-    optionsSuccessStatus: 200,
-  })
-);
+app.use(express.json());
 
 app.use(loginRoute);
 app.use(registerRoute);
-
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
 
 // middleware for handling 404 requests
 app.use(notFoundHandler);

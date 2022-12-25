@@ -1,7 +1,7 @@
 const notFoundHandler = (req, res) => {
   res.status(404);
   if (req.accepts("json")) {
-    res.send({ error: "Not found", status: 404 });
+    res.status(404).send({ error: "Not found", status: 404 });
     return;
   }
   if (req.accepts("html")) {

@@ -43,7 +43,7 @@ class User {
         const user = result.rows[0];
         const isMatch = await this.compareUserPassword(user.password);
         if (isMatch) {
-          return user;
+          return { status: 200, message: "OK", user: user };
         } else {
           return {
             message: "Wrong username and password combination",

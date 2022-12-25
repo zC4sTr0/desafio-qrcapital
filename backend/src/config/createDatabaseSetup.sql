@@ -1,3 +1,6 @@
+-- This file is used to create the database and tables for the application to use. 
+-- It is run by docker-compose when the application is started for the first time.
+
 CREATE TABLE IF NOT EXISTS users(
       ID SERIAL PRIMARY KEY, 
       username VARCHAR(32) NOT NULL UNIQUE, 

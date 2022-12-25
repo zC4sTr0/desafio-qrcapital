@@ -5,8 +5,9 @@ describe("Error Handler", () => {
   it("should return a 404 status code and the correct body if the route is not found", (done) => {
     http
       .request(
-        "http://localhost:3001/",
         {
+          host: "localhost",
+          port: 3001,
           method: "GET",
           path: "/non-existent-route",
           headers: { Accept: "application/json" },
