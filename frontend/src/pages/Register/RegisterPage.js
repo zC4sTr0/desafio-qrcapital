@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   registerUser,
   checkUsernameAvaiable,
@@ -63,9 +63,7 @@ const Register = () => {
       displayName,
       email,
     });
-    console.dir(retorno_api);
     if (retorno_api.status === 401) {
-      console.dir(retorno_api.response.data.message);
     }
     if (retorno_api.status === 200) {
       navigate("/");
@@ -76,7 +74,7 @@ const Register = () => {
   const onUsernameChange = async (e) => {
     setUsername(e.target.value);
     usernameAvaiabilityCheckResolved = true;
-    const regex = /^[A-Za-z0-9]+$/;
+    const regex = /^[a-zA-Z0-9._-]{1,32}$/;
 
     if (!regex.test(e.target.value) && e.target.value.length > 0) {
       setStatusUsername("error");
@@ -96,7 +94,7 @@ const Register = () => {
     usernameAvaiabilityCheckResolved = false;
 
     //simulate delay for interview purposes only
-    await delay(2000);
+    await delay(1100);
     var username = e.target.value;
     var returnValidUserCheck = await checkUsernameAvaiable({
       username,

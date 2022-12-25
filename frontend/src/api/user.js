@@ -1,15 +1,13 @@
-import axios from "axios";
+import axiosInstance from "./axios";
 
 async function loginUser(credentials) {
   var return_Login;
-  await axios
-    .post("http://localhost:3001/login", credentials)
+  await axiosInstance
+    .post("/login", credentials)
     .then((response) => {
-      console.dir(response);
       return_Login = response;
     })
     .catch((error) => {
-      console.dir(error);
       return_Login = error.response;
     });
   return return_Login;
@@ -17,8 +15,8 @@ async function loginUser(credentials) {
 
 async function registerUser(credentials) {
   var return_register;
-  await axios
-    .post("http://localhost:3001/register", credentials)
+  await axiosInstance
+    .post("/register", credentials)
     .then((response) => {
       return_register = response;
     })
@@ -31,8 +29,8 @@ async function registerUser(credentials) {
 async function checkUsernameAvaiable(username) {
   var returnUsernameCheck;
 
-  await axios
-    .post("http://localhost:3001/username", username)
+  await axiosInstance
+    .post("/username", username)
     .then((response) => {
       returnUsernameCheck = response;
     })
@@ -45,9 +43,8 @@ async function checkUsernameAvaiable(username) {
 
 async function checkEmailAvaiable(email) {
   var returnEmailCheck;
-
-  await axios
-    .post("http://localhost:3001/email", email)
+  await axiosInstance
+    .post("/email", email)
     .then((response) => {
       returnEmailCheck = response;
     })

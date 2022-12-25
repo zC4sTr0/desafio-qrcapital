@@ -8,17 +8,27 @@ const Login = () => {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [statusUsername, setStatusUsername] = useState("");
+  const [errorMessageUsername, setErrorMessageUsername] = useState("");
+  const [errorMessagePassword, setErrorMessagePassword] = useState("");
+  const [statusPassword, setStatusPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     var retorno_api = await loginUser({ username, password });
+
     if (retorno_api.status === 401) {
-      setErrorMessage(retorno_api.data);
+      setStatusUsername("error");
+      setStatusPassword("error");
+      setErrorMessageUsername("Invalid username or password");
+      setErrorMessagePassword("Invalid username or password");
     }
+
     if (retorno_api.status === 200) {
       navigate("/dashboard");
     }
+
     return retorno_api;
   };
 
@@ -45,6 +55,8 @@ const Login = () => {
               id="username"
               name="username"
               value={username}
+              status={statusUsername}
+              errorMessage={errorMessageUsername}
               onChange={onUsernameChange}
             ></InputLabel>
 
@@ -54,6 +66,8 @@ const Login = () => {
               id="password"
               name="password"
               value={password}
+              status={statusPassword}
+              errorMessage={errorMessagePassword}
               onChange={onPasswordChange}
             ></InputLabel>
             {errorMessage !== "" && (
