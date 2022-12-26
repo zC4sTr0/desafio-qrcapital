@@ -73,7 +73,7 @@ const Login = () => {
             {errorMessage !== "" && (
               <p
                 id="outlined_error_help"
-                className="mt-2 font-bold text-sm text-red-400 dark:text-red-400"
+                className="mt-2 font-bold text-sm text-red-400"
               >
                 {errorMessage}
               </p>

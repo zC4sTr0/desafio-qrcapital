@@ -65,8 +65,6 @@ const InputLabel = ({
   }
 
   return (
-    //width 600px
-    //height 400px
     <div className="w-[300px] ">
       <div className={errorMessage ? "relative my-4" : "relative my-8"}>
         <input
@@ -83,7 +81,7 @@ const InputLabel = ({
         {renderStatusIcon()}
         <label
           htmlFor={name}
-          className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-3 peer-focus:text-grey-600 peer-focus:dark:text-grey-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
+          className="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-3 peer-focus:text-grey-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
         >
           {labelName}
         </label>
