@@ -10,6 +10,7 @@ const loginRoute = require("./src/routes/loginRoute");
 const registerRoute = require("./src/routes/registerRoute");
 const notFoundHandler = require("./src/middlewares/notFoundHandler");
 const authRoute = require("./src/routes/authRoute");
+const cryptoCompareRoute = require("./src/routes/cryptoCompareRoute");
 
 app.use(cors(corsOptions));
 
@@ -23,6 +24,7 @@ app.use(express.json());
 app.use(loginRoute);
 app.use(registerRoute);
 app.use(authRoute);
+app.use(cryptoCompareRoute);
 
 // middleware for handling 404 requests
 app.use(notFoundHandler);

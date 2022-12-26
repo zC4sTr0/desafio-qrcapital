@@ -1,5 +1,5 @@
 #backend
-FROM node:16.15.1-alpine as build
+FROM node:18.12.1-alpine as build
 RUN npm install -g npm@latest
 WORKDIR /backend
 COPY package.json /backend/package.json
