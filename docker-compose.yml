@@ -38,4 +38,4 @@ services:
       - "5432:5432"
       - "5433:5433"
     volumes:
-      - ./backend/src/database/create.sql:/docker-entrypoint-initdb.d/create.sql
+      - ./backend/src/config/createDatabaseSetup.sql:/docker-entrypoint-initdb.d/createDatabaseSetup.sql

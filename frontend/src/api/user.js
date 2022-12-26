@@ -3,7 +3,7 @@ import axiosInstance from "./axios";
 async function loginUser(credentials) {
   var return_Login;
   await axiosInstance
-    .post("/login", credentials)
+    .post("/login", credentials, { withCredentials: true })
     .then((response) => {
       return_Login = response;
     })

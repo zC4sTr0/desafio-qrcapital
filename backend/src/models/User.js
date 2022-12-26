@@ -2,17 +2,11 @@ const db = require("../database/database");
 const bcrypt = require("bcrypt");
 
 class User {
-  constructor(user) {
-    this.username = user.username;
-    if (user.password) {
-      this.password = user.password;
-    }
-    if (user.email) {
-      this.email = user.email;
-    }
-    if (user.name) {
-      this.name = user.name;
-    }
+  constructor({ username, password, email, name }) {
+    this.username = username;
+    this.password = password;
+    this.email = email;
+    this.name = name;
   }
 
   async cryptUserPassword() {
@@ -40,7 +34,7 @@ class User {
       const result = await db.query(query, params);
 
       if (result.rows.length > 0) {
-        const user = result.rows[0];
+        const user = result.rows?.[0];
         const isMatch = await this.compareUserPassword(user.password);
         if (isMatch) {
           return { status: 200, message: "OK", user: user };
@@ -72,7 +66,7 @@ class User {
     const params = [this.username, this.password, this.email, this.name];
     try {
       const result = await db.query(query, params);
-      return result.rows[0];
+      return result.rows?.[0];
     } catch (err) {
       return err;
     }
@@ -82,7 +76,7 @@ class User {
     const query = `SELECT * FROM users WHERE username = $1`;
     const params = [username];
     const result = await db.query(query, params);
-    if (result.rows.length > 0) {
+    if (result.rows?.length > 0) {
       return false;
     } else {
       return true;
@@ -94,7 +88,7 @@ class User {
     const query = `SELECT * FROM users WHERE email = $1`;
     const params = [email];
     const result = await db.query(query, params);
-    if (result.rows.length > 0) {
+    if (result.rows?.length > 0) {
       return false;
     } else {
       return true;

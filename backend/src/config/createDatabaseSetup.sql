@@ -17,3 +17,15 @@ CREATE SEQUENCE IF NOT EXISTS users_id_seq
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
+
+CREATE TABLE sessions (
+  session_id VARCHAR(100) PRIMARY KEY,
+  user_id VARCHAR(32) REFERENCES users(username),
+  user_ip VARCHAR(50) NOT NULL,
+  browser VARCHAR(50) NOT NULL,
+  browser_version VARCHAR(50) NOT NULL,
+  os VARCHAR(50) NOT NULL,
+  os_version VARCHAR(50) NOT NULL,
+  expiration_timestamp TIMESTAMP NOT NULL,
+  is_active BOOLEAN NOT NULL DEFAULT TRUE
+);
