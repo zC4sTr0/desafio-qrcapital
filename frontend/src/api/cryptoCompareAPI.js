@@ -23,8 +23,6 @@ async function getRequestBlockchainList() {
     .catch((error) => {
       getRequestBlockchainListResponse = error;
     });
-  console.log("getRequestBlockchainListResponse");
-  console.dir(getRequestBlockchainListResponse);
   return getRequestBlockchainListResponse;
 }
 
@@ -38,8 +36,6 @@ async function getRequestCoinPrice(coin, currency) {
     .catch((error) => {
       getRequestCoinPriceResponse = error;
     });
-  console.log("getRequestCoinPriceResponse");
-  console.dir(getRequestCoinPriceResponse);
   return getRequestCoinPriceResponse;
 }
 
@@ -55,12 +51,10 @@ async function getRequestCoinPriceLast24Hours(coin, currency) {
     .catch((error) => {
       getRequestCoinPriceLast24HoursResponse = error;
     });
-  console.log("getRequestCoinPriceLast24HoursResponse");
-  console.dir(getRequestCoinPriceLast24HoursResponse);
   return getRequestCoinPriceLast24HoursResponse;
 }
 
-export default {
+export const cryptoCompareAPI = {
   getRequestFullCoinInfoList,
   getRequestBlockchainList,
   getRequestCoinPrice,

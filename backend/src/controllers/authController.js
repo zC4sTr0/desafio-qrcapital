@@ -4,14 +4,13 @@ const userAgentParser = require("../utils/userAgentParser");
 
 const postLoginUser = async (req, res) => {
   const [username, password] = [req.body.username, req.body.password];
-
   if (!username || !password) {
     res.status(400).send("Username and password are required");
   }
   const user = new User({ username, password });
+
   //if login is successful, the user object will be sent back to the client
   var result_login = await user.login();
-
   if (result_login.status !== 200) {
     res.status(result_login.status).send(result_login.message);
     return;
@@ -50,21 +49,19 @@ const postLoginUser = async (req, res) => {
     osVersion: osVersion,
     expirationTimestamp: expirationDate,
   });
-
   //save session to database
   SessionClass.saveSession(session);
 
   //send cookie to client with session id
-  console.log("session id: " + session.sessionId);
   res.cookie("sessionId", session.sessionId, {
     maxAge: cookieMaxAge,
     httpOnly: true,
-    sameSite: "none",
-    secure: true,
+    secure: false,
   });
   res.headers = {
-    "Access-Control-Allow-Origin": "http://localhost:3000",
+    "Access-Control-Allow-Origin": req.headers.origin,
     "Access-Control-Allow-Credentials": true,
+    "Access-Control-Allow-Methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
   };
 
   res
@@ -73,9 +70,19 @@ const postLoginUser = async (req, res) => {
 };
 
 const getAuth = async (req, res) => {
-  //send okay status
-  console.log("getAuth called");
-  res.status(200).send("OK");
+  //send okay status if cookie is present
+  if (!req.cookies.sessionId) {
+    res.redirect("/");
+    return;
+  }
+
+  const session = await SessionClass.checkSession(req.cookies.sessionId);
+  if (!session) {
+    res.redirect("/");
+    return;
+  }
+
+  res.status(200).send({ username: session.userId });
 };
 
 module.exports = {

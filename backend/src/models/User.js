@@ -94,6 +94,41 @@ class User {
       return true;
     }
   }
+
+  //add new coin to user's coin list
+  static async addCoin(coinId, coinSymbol, username) {
+    const query = `
+      INSERT INTO usercoins (id, symbol, username)
+      VALUES ($1, $2, $3)
+      RETURNING id, symbol, added_at
+    `;
+    const params = [coinId, coinSymbol, username];
+
+    try {
+      const result = await db.query(query, params);
+      if (result.rows?.length > 0) {
+        // If the coin was successfully added, get the updated list of coins for the user
+        const query = `SELECT id, symbol, added_at FROM usercoins WHERE username = $1`;
+        const params = [username];
+        const result = await db.query(query, params);
+
+        // Organize the list of coins as an object with the properties coinId, coinSymbol, username, and added_at
+        const userCoins = result.rows.map((row) => ({
+          coinId: row.id,
+          coinSymbol: row.symbol,
+          username: username,
+          added_at: row.added_at,
+        }));
+        return userCoins;
+      } else {
+        // If the coin was not added, return false
+        return false;
+      }
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  }
 }
 
 module.exports = User;

@@ -10,8 +10,6 @@ async function authenticate() {
     .catch((error) => {
       requestAuthResponse = error;
     });
-  console.log("requestAuthResponse");
-  console.dir(requestAuthResponse);
   return requestAuthResponse;
 }
 export default authenticate;

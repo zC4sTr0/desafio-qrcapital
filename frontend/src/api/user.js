@@ -3,7 +3,7 @@ import axiosInstance from "./axios";
 async function loginUser(credentials) {
   var return_Login;
   await axiosInstance
-    .post("/login", credentials, { withCredentials: true })
+    .post("/login", credentials, { withCredentials: true }) // withCredentials: true is needed to send the cookie
     .then((response) => {
       return_Login = response;
     })
@@ -54,4 +54,37 @@ async function checkEmailAvaiable(email) {
   return returnEmailCheck;
 }
 
-export { loginUser, registerUser, checkUsernameAvaiable, checkEmailAvaiable };
+async function logoutUser() {
+  var return_logout;
+  await axiosInstance
+    .get("/logout", { withCredentials: true })
+    .then((response) => {
+      return_logout = response;
+    })
+    .catch((error) => {
+      return_logout = error.response;
+    });
+  return return_logout;
+}
+
+async function addUserCoin(coin) {
+  var return_addCoin;
+  await axiosInstance
+    .post("/user/addCoin", coin, { withCredentials: true })
+    .then((response) => {
+      return_addCoin = response;
+    })
+    .catch((error) => {
+      return_addCoin = error.response;
+    });
+  return return_addCoin;
+}
+
+export {
+  loginUser,
+  registerUser,
+  checkUsernameAvaiable,
+  checkEmailAvaiable,
+  logoutUser,
+  addUserCoin,
+};

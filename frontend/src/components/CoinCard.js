@@ -3,13 +3,13 @@ import { useState, useEffect } from "react";
 const CoinCard = () => {
   return (
     <>
-      <div class="bg-white rounded-3xl border shadow-xl p-8 ">
-        <div class="flex justify-between items-center mb-4">
-          <button class="inline-flex items-center justify-center w-14 h-14 text-blue-100 bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-full">
+      <div className="bg-white rounded-3xl border shadow-xl p-8 ">
+        <div className="flex justify-between items-center mb-4">
+          <button className="inline-flex items-center justify-center w-14 h-14 text-blue-100 bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-full">
             <svg
               fill="#FFFFFF"
               xmlns="http://www.w3.org/2000/svg"
-              class="h-8 w-8"
+              className="h-8 w-8"
               viewBox="0 0 26 26"
               width="26px"
               height="26px"
@@ -18,16 +18,16 @@ const CoinCard = () => {
             </svg>
           </button>
           <div>
-            <span class="font-bold text-green-500">+ $726 (15%)</span>
+            <span className="font-bold text-green-500">+ $726 (15%)</span>
             <br />
-            <span class="font-medium text-xs text-gray-500 flex justify-end">
+            <span className="font-medium text-xs text-gray-500 flex justify-end">
               0.382 coin
             </span>
           </div>
         </div>
         <div>
-          <h3 class="font-semibold text-sm text-gray-400">BTC</h3>
-          <h1 class="font-semibold text-xl text-gray-700">$ 1,936.00</h1>
+          <h3 className="font-semibold text-sm text-gray-400">BTC</h3>
+          <h1 className="font-semibold text-xl text-gray-700">$ 1,936.00</h1>
         </div>
       </div>
     </>

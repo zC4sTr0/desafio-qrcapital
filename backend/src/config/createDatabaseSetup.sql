@@ -18,7 +18,7 @@ CREATE SEQUENCE IF NOT EXISTS users_id_seq
     NO MAXVALUE
     CACHE 1;
 
-CREATE TABLE sessions (
+CREATE TABLE IF NOT EXISTS sessions (
   session_id VARCHAR(100) PRIMARY KEY,
   user_id VARCHAR(32) REFERENCES users(username),
   user_ip VARCHAR(50) NOT NULL,
@@ -28,4 +28,13 @@ CREATE TABLE sessions (
   os_version VARCHAR(50) NOT NULL,
   expiration_timestamp TIMESTAMP NOT NULL,
   is_active BOOLEAN NOT NULL DEFAULT TRUE
+);
+
+CREATE TABLE IF NOT EXISTS usercoins(
+  ID INT , 
+  symbol VARCHAR(32) NOT NULL,
+  username VARCHAR(32) NOT NULL REFERENCES users(username),
+  added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (ID, username)
 );

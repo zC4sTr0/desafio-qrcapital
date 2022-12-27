@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react";
 import SearchBar from "../../components/SearchBar";
 import Dashboard from "../../components/Dashboard";
-import cryptoCompareAPI from "../../api/cryptoCompareAPI";
+import { cryptoCompareAPI } from "../../api/cryptoCompareAPI";
 
 //create useEffectHook to fetch JSON from getRequestFullCoinInfoList function API only once when the page is loaded and store it in const variable
 
 const DashboardPage = () => {
-  const [search, setSearch] = useState("");
   const [coinInfoList, setCoinInfoList] = useState(null);
+  const [userCoinList, setUserCoinList] = useState(null);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchCoinListData = async () => {
       const response = await cryptoCompareAPI.getRequestFullCoinInfoList();
       var arrayCoinsToSort = [];
       for (const [key, value] of Object.entries(response.data?.Data)) {
@@ -26,8 +26,13 @@ const DashboardPage = () => {
       //filter remove all coins with IsTrading=false
       setCoinInfoList(arrayCoinsSorted.filter((coin) => coin.IsTrading));
     };
-    fetchData();
+    fetchCoinListData();
   }, []);
+
+  const onNewCoinAddedCallback = (coin) => {
+    console.log(" a new coin was added:");
+    console.log(coin);
+  };
 
   return (
     <div className="flex flex-col items-center">
@@ -36,11 +41,12 @@ const DashboardPage = () => {
           <SearchBar
             placeholder={"Search for coins"}
             suggestionsJSON={coinInfoList}
+            onNewCoinCallback={onNewCoinAddedCallback}
           />
         </div>
       </div>
       <div className="w-11/12 2xl:w-3/6 xl:w-4/6 my-16 h-full md:ml-32 md:mr-32 sm:ml-16 sm:mr-16 ">
-        <Dashboard />
+        <Dashboard jsonCoinList={userCoinList} />
       </div>
     </div>
   );

@@ -6,13 +6,12 @@ const sessionChecker = (req, res, next) => {
     res.redirect("/login");
     return;
   }
-  // If the session ID is present, retrieve the session data from the map
-  const sessionID = sessions.checkSession(req.cookies.sessionId);
-  if (!sessionID) {
+  // If the session ID is present, retrieve the session obj from the map or database
+  const session = sessions.checkSession(req.cookies.sessionId);
+  if (!session) {
     res.redirect("/login");
     return;
   }
-  // If the session data is present, continue to the next middleware
   next();
 };
 

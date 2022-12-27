@@ -1,9 +1,18 @@
-import { useState, useEffect } from "react";
+import { useState, useContext } from "react";
 import CloseIcon from "./Icons/CloseIcon";
 import SearchIcon from "./Icons/SearchIcon";
+import AuthContext from "../contexts/authContext";
+import { addUserCoin } from "../api/user";
 
-const SearchBar = ({ json, trackedList, placeholder }) => {
+const SearchBar = ({
+  suggestionsJSON,
+  trackedList,
+  placeholder,
+  onNewCoinCallback,
+}) => {
+  const { loggedUsername } = useContext(AuthContext);
   const [searchTerm, setSearchTerm] = useState("");
+  var maxSuggestions = 6;
 
   const onSearchTermChange = (e) => {
     setSearchTerm(e.target.value);
@@ -11,6 +20,89 @@ const SearchBar = ({ json, trackedList, placeholder }) => {
 
   const onSubmitSearchTerm = (e) => {
     e.preventDefault();
+  };
+
+  const onClickCoin = async (coin) => {
+    //in this code its possible for the user to add a coin to another user account if we dont check if loggedUsername and cookie match in the backend
+    var result = await addUserCoin({
+      id: coin.Id,
+      symbol: coin.Symbol,
+      username: loggedUsername,
+    });
+    if (result) {
+      console.log("asddas");
+      onNewCoinCallback(result.data);
+      setSearchTerm("");
+    }
+  };
+
+  const renderSuggestions = () => {
+    let arraySuggestedCoin = [];
+    var suggestions = [];
+    if (searchTerm.length > 0 && suggestionsJSON) {
+      arraySuggestedCoin = suggestionsJSON.filter((coin) => {
+        return (
+          (coin.FullName.toLowerCase().includes(searchTerm.toLowerCase()) &&
+            coin.FullName.toLowerCase().indexOf(searchTerm.toLowerCase()) ===
+              0) ||
+          (coin.Symbol.includes(searchTerm) &&
+            coin.Symbol.indexOf(searchTerm) === 0)
+        );
+      });
+
+      var finalResult = arraySuggestedCoin.sort(function (a, b) {
+        return (
+          a.FullName.length - b.FullName.length || a.FullName.localeCompare(b)
+        );
+      });
+
+      finalResult.every((coin) => {
+        if (maxSuggestions > 0) {
+          maxSuggestions--;
+          suggestions.push(
+            <div
+              className="flex flex-col w-full"
+              key={coin.Id}
+              onClick={async () => await onClickCoin(coin)}
+            >
+              <div className="cursor-pointer w-full border-gray-100 rounded-b hover:bg-gray-200">
+                <div className="flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative hover:border-gray-200">
+                  <div className="w-10 flex flex-col items-center">
+                    <div className="flex relative w-5 h-5 bg-transparent justify-center items-center m-1 mr-2 w-10/12 h-10/12 mt-1 rounded-full ">
+                      <img
+                        className="rounded-full"
+                        alt="A"
+                        src={"http://www.cryptocompare.com" + coin.ImageUrl}
+                      ></img>
+                    </div>
+                  </div>
+                  <div className="w-full items-center flex">
+                    <div className="mx-2 -mt-1  ">
+                      {coin.FullName}
+                      <div className="text-xs truncate w-full normal-case font-normal -mt-1 text-gray-500">
+                        {coin.Symbol}
+                      </div>
+                    </div>
+                    <div className="w-1/2 flex">
+                      <div className="flex justify-center items-center m-1 font-medium py-1 px-2 bg-white rounded-full text-teal-700 bg-red-100 border border-red-300 ">
+                        <div className="text-xs font-normal leading-none max-w-full flex-initial">
+                          untracked
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+          return true;
+        } else {
+          return false;
+        }
+      });
+
+      return suggestions;
+    }
   };
 
   return (
@@ -29,6 +121,7 @@ const SearchBar = ({ json, trackedList, placeholder }) => {
             className="bg-gray-50 border hover:shadow-xl border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
             placeholder={placeholder}
             onChange={onSearchTermChange}
+            autoComplete="off"
             value={searchTerm}
             required
           ></input>
@@ -41,36 +134,7 @@ const SearchBar = ({ json, trackedList, placeholder }) => {
           </button>
 
           <div className="absolute shadow-xl bg-white top-100 z-40 w-full lef-0 rounded max-h-select overflow-y-auto svelte-5uyqqj">
-            <div className="flex flex-col w-full">
-              <div className="cursor-pointer w-full border-gray-100 rounded-b hover:bg-gray-200">
-                <div className="flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative hover:border-gray-200">
-                  <div className="w-6 flex flex-col items-center">
-                    <div className="flex relative w-5 h-5 bg-orange-500 justify-center items-center m-1 mr-2 w-4 h-4 mt-1 rounded-full ">
-                      <img
-                        className="rounded-full"
-                        alt="A"
-                        src="https://randomuser.me/api/portraits/men/85.jpg"
-                      ></img>
-                    </div>
-                  </div>
-                  <div className="w-full items-center flex">
-                    <div className="mx-2 -mt-1  ">
-                      adsadsdsa
-                      <div className="text-xs truncate w-full normal-case font-normal -mt-1 text-gray-500">
-                        adsd
-                      </div>
-                    </div>
-                    <div className="w-1/2 flex">
-                      <div className="flex justify-center items-center m-1 font-medium py-1 px-2 bg-white rounded-full text-teal-700 bg-teal-100 border border-teal-300 ">
-                        <div className="text-xs font-normal leading-none max-w-full flex-initial">
-                          asdads
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            {renderSuggestions()}
           </div>
         </div>
       </form>

@@ -36,8 +36,24 @@ const postCheckEmailAvaiable = async (req, res) => {
   }
 };
 
+const postRegisterNewCoin = async (req, res) => {
+  const [coinId, coinSymbol, username] = [
+    req.body.id,
+    req.body.symbol,
+    req.body.username,
+  ];
+
+  const userCoinList = await User.addCoin(coinId, coinSymbol, username);
+  if (!userCoinList) {
+    res.status(400).send("Coin is not added");
+  } else {
+    res.status(200).send(userCoinList);
+  }
+};
+
 module.exports = {
   postRegisterUser,
   postCheckUsernameAvaiable,
   postCheckEmailAvaiable,
+  postRegisterNewCoin,
 };

@@ -40,7 +40,7 @@ class SessionClass {
       const result = await db.query(query, params);
       if (result.rows?.length > 0) {
         // Create a new session instance
-        const session = new SessionClass({
+        const recreated_session = new SessionClass({
           userId: result.rows?.[0]?.user_id,
           userIP: result.rows?.[0]?.user_ip,
           browser: result.rows?.[0]?.browser,
@@ -49,7 +49,8 @@ class SessionClass {
           osVersion: result.rows?.[0]?.os_version,
           expirationDate: result.rows?.[0]?.expiration_timestamp,
         });
-        return result.rows?.[0]?.session_id;
+
+        return recreated_session;
       } else {
         return false;
       }
@@ -90,6 +91,27 @@ class SessionClass {
     SessionClass.sessionList.splice(index, 1);
     // Destroy the session instance
     delete this;
+  }
+
+  static async getUsernameBySessionID(sessionId) {
+    const session = SessionClass.sessionList.find((session) => {
+      return session.sessionId === sessionId;
+    });
+
+    if (session && session.userId) {
+      return session.userId;
+    } else {
+      // If the session is not found in the sessionList array or the userId is not valid, check the database
+      const query = `SELECT user_id FROM sessions WHERE session_id = $1 AND expiration_timestamp > NOW() AND is_active = true`;
+      const params = [sessionId];
+
+      const result = await db.query(query, params);
+      if (result.rows?.length > 0) {
+        return result.rows?.[0]?.user_id;
+      } else {
+        return false;
+      }
+    }
   }
 }
 
