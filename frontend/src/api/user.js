@@ -80,6 +80,31 @@ async function addUserCoin(coin) {
   return return_addCoin;
 }
 
+async function postUserCoinList(username) {
+  var return_getUserCoinList;
+  await axiosInstance
+    .post("/user/getUserCoinList", username, { withCredentials: true })
+    .then((response) => {
+      return_getUserCoinList = response;
+    })
+    .catch((error) => {
+      return_getUserCoinList = error.response;
+    });
+  return return_getUserCoinList;
+}
+async function postDeleteUserCoin(coin) {
+  var return_deleteCoin;
+  await axiosInstance
+    .post("/user/deleteCoin", coin, { withCredentials: true })
+    .then((response) => {
+      return_deleteCoin = response;
+    })
+    .catch((error) => {
+      return_deleteCoin = error.response;
+    });
+  return return_deleteCoin;
+}
+
 export {
   loginUser,
   registerUser,
@@ -87,4 +112,6 @@ export {
   checkEmailAvaiable,
   logoutUser,
   addUserCoin,
+  postUserCoinList,
+  postDeleteUserCoin,
 };

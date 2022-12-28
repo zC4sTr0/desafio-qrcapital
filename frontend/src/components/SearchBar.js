@@ -13,7 +13,6 @@ const SearchBar = ({
   const { loggedUsername } = useContext(AuthContext);
   const [searchTerm, setSearchTerm] = useState("");
   var maxSuggestions = 6;
-
   const onSearchTermChange = (e) => {
     setSearchTerm(e.target.value);
   };
@@ -24,15 +23,14 @@ const SearchBar = ({
 
   const onClickCoin = async (coin) => {
     //in this code its possible for the user to add a coin to another user account if we dont check if loggedUsername and cookie match in the backend
+    setSearchTerm("");
     var result = await addUserCoin({
       id: coin.Id,
       symbol: coin.Symbol,
       username: loggedUsername,
     });
     if (result) {
-      console.log("asddas");
       onNewCoinCallback(result.data);
-      setSearchTerm("");
     }
   };
 

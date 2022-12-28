@@ -48,35 +48,52 @@ const getBlockchainList = async () => {
 
 //get the price of a coin in a specific currency
 const getCoinPrice = async (coin, currency) => {
-  return await fetchJSON(
-    baseURL +
-      "price" +
-      "?fsym=" +
-      coin +
-      "&tsyms=" +
-      currency +
-      "&api_key=" +
-      apiKey +
-      "&extraParams=" +
-      applicationName
-  );
+  try {
+    return await fetchJSON(
+      baseURL +
+        "pricemulti" +
+        "?fsyms=" +
+        coin +
+        "&tsyms=" +
+        currency +
+        "&api_key=" +
+        apiKey +
+        "&extraParams=" +
+        applicationName
+    );
+  } catch (error) {
+    console.log("Error while fetching the price of the coin " + coin + "!");
+    console.dir(error);
+    return 0;
+  }
 };
 
 //get the price of a coin in last 24 hours
 const getCoinPriceLast24Hours = async (coin, currency) => {
-  return await fetchJSON(
-    baseURL +
-      "v2/histohour" +
-      "?fsym=" +
-      coin +
-      "&tsym=" +
-      currency +
-      "&limit=24" +
-      "&api_key=" +
-      apiKey +
-      "&extraParams=" +
-      applicationName
-  );
+  try {
+    var resultCoinPrice24Hours = await fetchJSON(
+      baseURL +
+        "v2/histohour" +
+        "?fsym=" +
+        coin +
+        "&tsym=" +
+        currency +
+        "&limit=24" +
+        "&api_key=" +
+        apiKey +
+        "&extraParams=" +
+        applicationName
+    );
+    return resultCoinPrice24Hours.Data.Data[0].close;
+  } catch (error) {
+    console.log(
+      "Error while fetching the 24-hours history price of the coin " +
+        coin +
+        "!"
+    );
+    console.dir(error);
+    return 0;
+  }
 };
 
 module.exports = {

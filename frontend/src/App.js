@@ -3,6 +3,7 @@ import Register from "./pages/Register/RegisterPage";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import RequireAuth from "./components/RequireAuth";
 import Dashboard from "./pages/Dashboard/DashboardPage";
+import { UserCoinProvider } from "./contexts/userCoinListContext";
 
 function App() {
   return (
@@ -15,7 +16,14 @@ function App() {
           <Route path="/register" element={<Register />}></Route>
 
           <Route element={<RequireAuth />}>
-            <Route path="/dashboard" element={<Dashboard />}></Route>
+            <Route
+              path="/dashboard"
+              element={
+                <UserCoinProvider>
+                  <Dashboard />
+                </UserCoinProvider>
+              }
+            ></Route>
           </Route>
         </Routes>
       </BrowserRouter>

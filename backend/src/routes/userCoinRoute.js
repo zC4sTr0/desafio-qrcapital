@@ -9,4 +9,16 @@ router.post(
   registerController.postRegisterNewCoin
 );
 
+router.post(
+  "/user/deleteCoin",
+  sessionChecker,
+  registerController.postDeleteCoin
+);
+
+router.post(
+  "/user/getUserCoinList",
+  sessionChecker,
+  registerController.postGetUserCoinList
+);
+
 module.exports = router;

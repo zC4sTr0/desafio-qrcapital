@@ -1,4 +1,28 @@
 const User = require("../models/User");
+const {
+  getCoinPriceLast24Hours,
+  getCoinPrice,
+} = require("../api/cryptoCompareAPI");
+
+const updateCoinPrice = async (coinList) => {
+  //iterate in coinList and create a array with coinSymbol using ',' as separator to pass to the API
+  const coinSymbolList = coinList.map((coin) => coin.coinSymbol).join(",");
+  const coinPriceList = await getCoinPrice(coinSymbolList, "USD");
+
+  const coinListWithPrice = coinList.map((coin) => {
+    coin.price = coinPriceList[coin.coinSymbol]?.USD;
+    return coin;
+  });
+
+  const updatedCoinList = await Promise.all(
+    coinListWithPrice.map(async (coin) => {
+      const coinPrice = await getCoinPriceLast24Hours(coin.coinSymbol, "USD");
+      coin.price24Hours = coinPrice;
+      return coin;
+    })
+  );
+  return updatedCoinList;
+};
 
 const postRegisterUser = async (req, res) => {
   const [username, password, email, name] = [
@@ -46,9 +70,41 @@ const postRegisterNewCoin = async (req, res) => {
   const userCoinList = await User.addCoin(coinId, coinSymbol, username);
   if (!userCoinList) {
     res.status(400).send("Coin is not added");
-  } else {
-    res.status(200).send(userCoinList);
+    return;
   }
+  //get updated user coin list after adding new coin
+  await updateCoinPrice(userCoinList);
+  res.status(200).send(userCoinList);
+};
+
+const postDeleteCoin = async (req, res) => {
+  const [coinId, coinSymbol, username] = [
+    req.body.id,
+    req.body.symbol,
+    req.body.username,
+  ];
+
+  const userCoinList = await User.deleteCoin(coinId, coinSymbol, username);
+  if (!userCoinList) {
+    res.status(400).send("Coin could not be deleted");
+    return;
+  }
+  //get updated user coin list after adding new coin
+  await updateCoinPrice(userCoinList);
+  res.status(200).send(userCoinList);
+};
+
+const postGetUserCoinList = async (req, res) => {
+  const [username] = [req.body.username];
+
+  const userCoinList = await User.getUserCoins(username);
+  if (!userCoinList) {
+    res.status(400).send("Coin List could not be found");
+    return;
+  }
+  //get updated user coin list after adding new coin
+  await updateCoinPrice(userCoinList);
+  res.status(200).send(userCoinList);
 };
 
 module.exports = {
@@ -56,4 +112,6 @@ module.exports = {
   postCheckUsernameAvaiable,
   postCheckEmailAvaiable,
   postRegisterNewCoin,
+  postGetUserCoinList,
+  postDeleteCoin,
 };
