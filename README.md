@@ -26,8 +26,8 @@
 
 ## Preview
 
-<img src="preview/qr-preview-dashboard.gif" alt="QR-PREVIEW-DASHBOARD" width="100" height="100">
-<img src="preview/qr-preview-register.gif" alt="QR-PREVIEW-REGISTER" width="100" height="100">
+<img src="preview/qr-preview-dashboard.gif" alt="QR-PREVIEW-DASHBOARD"/>
+<img src="preview/qr-preview-register.gif" alt="QR-PREVIEW-REGISTER"/>
 
 ## Features
 
@@ -75,7 +75,14 @@ For online games, the choose of which verification should be on front or back-en
 
 #### Fluent english writing/reading skills
 
-I write the challenge using english-only to show my many-years experience on creating software and documentatios in english language so anyone can contribute and do maintenance.
+I have years of experience working with teams in asynchronous chats.
+The main language of the challenge is english-only to show my experience on creating software and documentations in english language so anyone can contribute and do maintenance.
+
+
+#### Automated test coverage and Test-driven Development
+
+This program was made using TDD methodology and I used Jest to create the tests. 
+
 
 #### PostgreSQL and using database from a nodeJS server
 
