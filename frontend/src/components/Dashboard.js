@@ -5,8 +5,6 @@ const Dashboard = ({ allCoinsInfo, userCoinList }) => {
   const renderCoinCards = () => {
     if (userCoinList) {
       if (!Array.isArray(userCoinList)) {
-        console.log("userCoinList is not an array");
-        console.log(userCoinList);
         return;
       }
       return userCoinList.map((coin) => {
@@ -21,7 +19,7 @@ const Dashboard = ({ allCoinsInfo, userCoinList }) => {
               symbol={completeInfo.Symbol}
               price={coin.price}
               price24Hours={coin.price24Hours}
-              name={completeInfo.Name}
+              name={completeInfo.FullName}
             />
           );
         }

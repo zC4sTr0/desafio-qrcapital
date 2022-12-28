@@ -76,7 +76,7 @@ class SessionClass {
     try {
       return await db.query(query, params);
     } catch (error) {
-      console.error(error);
+      return error;
     }
   }
 

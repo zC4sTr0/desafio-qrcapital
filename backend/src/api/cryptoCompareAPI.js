@@ -63,8 +63,7 @@ const getCoinPrice = async (coin, currency) => {
     );
   } catch (error) {
     console.log("Error while fetching the price of the coin " + coin + "!");
-    console.dir(error);
-    return 0;
+    return error;
   }
 };
 
@@ -86,13 +85,7 @@ const getCoinPriceLast24Hours = async (coin, currency) => {
     );
     return resultCoinPrice24Hours.Data.Data[0].close;
   } catch (error) {
-    console.log(
-      "Error while fetching the 24-hours history price of the coin " +
-        coin +
-        "!"
-    );
-    console.dir(error);
-    return 0;
+    return error;
   }
 };
 

@@ -24,11 +24,9 @@ const CoinCard = ({ id, imageUrl, symbol, price, name, price24Hours }) => {
       });
       if (result_coinDeleted) {
         setUserCoinList(result_coinDeleted.data);
-      } else {
-        console.log("error deleting coin");
       }
     } catch (error) {
-      console.log(error);
+      return error;
     }
   };
 
@@ -71,9 +69,7 @@ const CoinCard = ({ id, imageUrl, symbol, price, name, price24Hours }) => {
         </div>
 
         <div>
-          <h3 className="font-semibold text-sm text-gray-400">
-            {name + " (" + symbol + ")"}
-          </h3>
+          <h3 className="font-semibold text-sm text-gray-400">{name}</h3>
           <h1 className="font-semibold text-xl text-gray-700">
             {"$ " + price.toFixed(2)}
           </h1>

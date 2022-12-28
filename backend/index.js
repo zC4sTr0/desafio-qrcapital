@@ -32,7 +32,7 @@ app.use(userCoinRoute);
 app.use(notFoundHandler);
 
 app.listen(process.env.PORT || 3001, () => {
-  console.log("Example app listening on port 3001!");
+  console.log("The QR Server is listening on port 3001!");
 });
 
 module.exports = app;

@@ -48,7 +48,6 @@ class User {
         return { message: "Invalid username", status: 401 };
       }
     } catch (err) {
-      console.log("Error while login" + err);
       return err;
     }
   }
@@ -130,7 +129,6 @@ class User {
         return false;
       }
     } catch (error) {
-      console.error(error);
       return false;
     }
   }
@@ -154,7 +152,6 @@ class User {
         return false;
       }
     } catch (error) {
-      console.error(error);
       return false;
     }
   }
