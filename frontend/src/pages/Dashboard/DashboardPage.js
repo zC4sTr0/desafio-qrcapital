@@ -54,6 +54,7 @@ const DashboardPage = () => {
             placeholder={"Search for coins"}
             suggestionsJSON={coinInfoList}
             onNewCoinCallback={onNewCoinAddedCallback}
+            trackedList={userCoinList}
           />
         </div>
       </div>

@@ -17,11 +17,18 @@ const SearchBar = ({
     setSearchTerm(e.target.value);
   };
 
+  const checkCoinIsTracked = (coin) => {
+    return trackedList?.some((trackedCoin) => trackedCoin.coinId == coin.Id);
+  };
+
   const onSubmitSearchTerm = (e) => {
     e.preventDefault();
   };
 
   const onClickCoin = async (coin) => {
+    if (checkCoinIsTracked(coin)) {
+      return;
+    }
     //in this code its possible for the user to add a coin to another user account if we dont check if loggedUsername and cookie match in the backend
     setSearchTerm("");
     var result = await addUserCoin({
@@ -31,6 +38,19 @@ const SearchBar = ({
     });
     if (result) {
       onNewCoinCallback(result.data);
+    }
+  };
+
+  const renderTrackedIcon = (coin) => {
+    //check if any coin in trackedList has the same Id as the coin passed as parameter
+    if (checkCoinIsTracked(coin)) {
+      return (
+        <div className="flex justify-center items-center m-1 font-medium py-1 px-2 bg-white rounded-full text-teal-700 bg-green-200 border border-green-500 ">
+          <div className="text-xs font-normal leading-none max-w-full flex-initial">
+            already on list
+          </div>
+        </div>
+      );
     }
   };
 
@@ -81,13 +101,7 @@ const SearchBar = ({
                         {coin.Symbol}
                       </div>
                     </div>
-                    <div className="w-1/2 flex">
-                      <div className="flex justify-center items-center m-1 font-medium py-1 px-2 bg-white rounded-full text-teal-700 bg-red-100 border border-red-300 ">
-                        <div className="text-xs font-normal leading-none max-w-full flex-initial">
-                          untracked
-                        </div>
-                      </div>
-                    </div>
+                    <div className="w-1/2 flex">{renderTrackedIcon(coin)}</div>
                   </div>
                 </div>
               </div>
@@ -109,7 +123,7 @@ const SearchBar = ({
         className="flex flex-col items-center relative my-10"
         onSubmit={onSubmitSearchTerm}
       >
-        <div className="relative w-full">
+        <div className="relative w-full 2xl:w-6/12 xl:w-8/12">
           <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
             <SearchIcon />
           </div>
@@ -131,7 +145,7 @@ const SearchBar = ({
             {searchTerm.length > 0 && <CloseIcon />}
           </button>
 
-          <div className="absolute shadow-xl bg-white top-100 z-40 w-full lef-0 rounded max-h-select overflow-y-auto svelte-5uyqqj">
+          <div className="absolute shadow-xl bg-white top-100 z-40 w-full lef-0 rounded max-h-select overflow-y-auto ">
             {renderSuggestions()}
           </div>
         </div>

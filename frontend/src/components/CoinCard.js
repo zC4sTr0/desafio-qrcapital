@@ -1,11 +1,11 @@
-import { useState, useEffect, useContext } from "react";
+import { useContext } from "react";
 import TrashButton from "./TrashButton";
 import UserCoinListContext from "../contexts/userCoinListContext";
 import AuthContext from "../contexts/authContext";
 import { postDeleteUserCoin } from "../api/user";
 
 const CoinCard = ({ id, imageUrl, symbol, price, name, price24Hours }) => {
-  const { userCoinList, setUserCoinList } = useContext(UserCoinListContext);
+  const { setUserCoinList } = useContext(UserCoinListContext);
   const { loggedUsername } = useContext(AuthContext);
 
   function calculatePercentualChange(priceToday, priceYesterday) {
@@ -14,6 +14,13 @@ const CoinCard = ({ id, imageUrl, symbol, price, name, price24Hours }) => {
       ((priceToday - priceYesterday) / priceYesterday) * 100;
     return percentualChange;
   }
+
+  const renderPrice = () => {
+    if (price > 0.01) {
+      return "$ " + price.toFixed(2);
+    }
+    return "$ " + price.toFixed(8);
+  };
 
   const handleDeleteCoinRequest = async () => {
     try {
@@ -55,7 +62,6 @@ const CoinCard = ({ id, imageUrl, symbol, price, name, price24Hours }) => {
             <img
               className="rounded-full"
               alt="A"
-              key={id}
               src={"http://www.cryptocompare.com" + imageUrl}
             ></img>
           </button>
@@ -71,7 +77,7 @@ const CoinCard = ({ id, imageUrl, symbol, price, name, price24Hours }) => {
         <div>
           <h3 className="font-semibold text-sm text-gray-400">{name}</h3>
           <h1 className="font-semibold text-xl text-gray-700">
-            {"$ " + price.toFixed(2)}
+            {renderPrice()}
           </h1>
           <TrashButton onDeleteButtonClick={() => handleDeleteCoinRequest()} />
         </div>

@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import CoinCard from "./CoinCard";
 
 const Dashboard = ({ allCoinsInfo, userCoinList }) => {
@@ -20,9 +19,11 @@ const Dashboard = ({ allCoinsInfo, userCoinList }) => {
               price={coin.price}
               price24Hours={coin.price24Hours}
               name={completeInfo.FullName}
+              key={coin.coinId}
             />
           );
         }
+        return completeInfo;
       });
     }
   };
