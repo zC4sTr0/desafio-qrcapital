@@ -64,7 +64,7 @@ After the containers are created, you can access the application using the follo
 
 # Competences
 
-There's several hard skills which I want to prove I have in this challenge:
+There are several hard skills which I want to prove I have in this challenge:
 
   
 
@@ -76,7 +76,7 @@ This program is made using NodeJS in the back-end and React in front-end.
 
   
 
-**I have already done other servers** for games in my many years of experience in full-stack development using many frameworks in my company (Gunbound GITZ) and this challenge allowed me to show a good understanding about how software works.
+**I have already done other servers** for games in my years of experience in full-stack development using many frameworks in my company (Gunbound GITZ) and this challenge allowed me to show a good understanding about how software works.
 
   
 
@@ -100,7 +100,7 @@ I want to show in this challenge that I have a good understanding about security
 
   
 
-For online games, the choose of which verification should be on front or back-end is a very important skill in order to create a secure app (the best security is the code). That's a knowledge that is true to any software (not only games) and that's the competence I want to show here: I'm capable of see when the software have inconsistent checks on frontend and when the backend should'nt trust the client.
+For online games, the choose of which verification should be on front or back-end is a very important skill in order to create a secure app (the best security is the code). That's a knowledge that is true to any software (not only games) and that's the competence I want to show here: I'm capable of see when the software have inconsistent checks on frontend and when the backend shouldn't trust the client.
 
   
 
@@ -119,7 +119,7 @@ The main language of the challenge is english-only to show my experience on crea
 
   
 
-I am **already used to think alot before writing any code**.
+I am **already used to think a lot before writing any code**.
 
 This program was made using TDD/BDD/DDD methodology and I used Jest to create the tests.
 
@@ -131,7 +131,7 @@ This program was made using TDD/BDD/DDD methodology and I used Jest to create th
 
 I'm used to adapt myself.
 
-This solution is a complete solution to show my high level of adaptability and very fast learning curve. **I accomplished every single topic of the challenge to prove that I can learn fast in order to deliver a project.** I've done this many times in my company, and like any entrepreneur I had to learn alot very fast.
+This solution is a complete solution to show my high level of adaptability and very fast learning curve. **I accomplished every single topic of the challenge to prove that I can learn fast in order to deliver a project.** I've done this many times in my company, and like any entrepreneur, I had to learn a lot very fast.
 
   
 
@@ -139,7 +139,7 @@ This solution is a complete solution to show my high level of adaptability and v
 
   
 
-As mentioned in the challenge rules, we use postgreSQL for database.
+As mentioned in the challenge rules, we used postgreSQL for database.
 
 I have more than 10 years of experience working with SQL in many databases(mySQL, SQL Server, PostgreSQL, etc).
 
@@ -169,7 +169,7 @@ I have more than 10 years of experience working with SQL in many databases(mySQL
 
 - 🔭 I’m currently working on [GunBound GITZ](www.gitzwc.com) as Founder/CEO
 
-- 🌱 I’m currently studying **Solidity, Flutter and React Native**
+- 🌱 I’m currently studying **Solidity, Python and React Native**
 
 - 👨‍💻 All of my projects are available at [www.github.com/zC4sTr0](www.github.com/zC4sTr0)
 
@@ -179,7 +179,7 @@ I have more than 10 years of experience working with SQL in many databases(mySQL
 
 <p  align="left">
 
-<a  href="https://twitter.com/c4str0"  target="blank"><img  align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/twitter.svg"  alt="c4str0"  height="30"  width="40"/></a><a  href="https://linkedin.com/in/https://www.linkedin.com/in/gabriel-castro-sodre/"  target="blank"><img  align="center"  src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg"  alt="https://www.linkedin.com/in/gabriel-castro-sodre/"  height="30"  width="40"  /></a>
+<a  href="https://twitter.com/c4str0"  target="blank"><img  align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/twitter.svg"  alt="c4str0"  height="30"  width="40"/></a><a  href="https://www.linkedin.com/in/gabriel-castro-sodre/"  target="blank"><img  align="center"  src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg"  alt="https://www.linkedin.com/in/gabriel-castro-sodre/"  height="30"  width="40"  /></a>
 
 </p>
 
