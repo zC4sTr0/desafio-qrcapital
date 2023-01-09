@@ -6,8 +6,6 @@ import AuthContext from "../contexts/authContext";
 const RequireAuth = () => {
   const location = useLocation();
   const { setIsAuthenticated, isAuthenticated } = useContext(AuthContext);
-  //context to share username
-  const { setLoggedUsername } = useContext(AuthContext);
   const [isResponseReceived, setIsResponseReceived] = useState(false);
 
   useEffect(() => {
@@ -15,7 +13,6 @@ const RequireAuth = () => {
       const authResponse = await authenticate();
       if (authResponse.status === 200) {
         setIsAuthenticated(true);
-        setLoggedUsername(authResponse.data.username);
         setIsResponseReceived(true);
       } else {
         setIsAuthenticated(false);

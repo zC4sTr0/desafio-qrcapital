@@ -30,7 +30,7 @@ async function checkUsernameAvaiable(username) {
   var returnUsernameCheck;
 
   await axiosInstance
-    .post("/username", username)
+    .get("/username", username)
     .then((response) => {
       returnUsernameCheck = response;
     })
@@ -44,7 +44,7 @@ async function checkUsernameAvaiable(username) {
 async function checkEmailAvaiable(email) {
   var returnEmailCheck;
   await axiosInstance
-    .post("/email", email)
+    .get("/email", email)
     .then((response) => {
       returnEmailCheck = response;
     })
@@ -57,7 +57,7 @@ async function checkEmailAvaiable(email) {
 async function logoutUser() {
   var return_logout;
   await axiosInstance
-    .get("/logout", { withCredentials: true })
+    .delete("/logout", { withCredentials: true })
     .then((response) => {
       return_logout = response;
     })
@@ -80,10 +80,10 @@ async function addUserCoin(coin) {
   return return_addCoin;
 }
 
-async function postUserCoinList(username) {
+async function getUserCoinList() {
   var return_getUserCoinList;
   await axiosInstance
-    .post("/user/getUserCoinList", username, { withCredentials: true })
+    .get("/user/getUserCoinList", { withCredentials: true })
     .then((response) => {
       return_getUserCoinList = response;
     })
@@ -92,10 +92,10 @@ async function postUserCoinList(username) {
     });
   return return_getUserCoinList;
 }
-async function postDeleteUserCoin(coin) {
+async function deleteUserCoin(coin) {
   var return_deleteCoin;
   await axiosInstance
-    .post("/user/deleteCoin", coin, { withCredentials: true })
+    .delete("/user/deleteCoin", coin, { withCredentials: true })
     .then((response) => {
       return_deleteCoin = response;
     })
@@ -112,6 +112,6 @@ export {
   checkEmailAvaiable,
   logoutUser,
   addUserCoin,
-  postUserCoinList,
-  postDeleteUserCoin,
+  getUserCoinList,
+  deleteUserCoin,
 };

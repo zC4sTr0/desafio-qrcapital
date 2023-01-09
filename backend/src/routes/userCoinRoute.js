@@ -3,22 +3,18 @@ const router = express.Router();
 const sessionChecker = require("../middlewares/sessionChecker");
 const registerController = require("../controllers/registerController");
 
-router.post(
-  "/user/addCoin",
-  sessionChecker,
-  registerController.postRegisterNewCoin
-);
+router.post("/user/addCoin", sessionChecker, registerController.postAddCoin);
 
-router.post(
+router.delete(
   "/user/deleteCoin",
   sessionChecker,
-  registerController.postDeleteCoin
+  registerController.deleteCoin
 );
 
-router.post(
+router.get(
   "/user/getUserCoinList",
   sessionChecker,
-  registerController.postGetUserCoinList
+  registerController.getUserCoinList
 );
 
 module.exports = router;

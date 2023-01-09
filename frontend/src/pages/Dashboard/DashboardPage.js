@@ -2,14 +2,12 @@ import { useState, useEffect, useContext } from "react";
 import SearchBar from "../../components/SearchBar";
 import Dashboard from "../../components/Dashboard";
 import { cryptoCompareAPI } from "../../api/cryptoCompareAPI";
-import { postUserCoinList } from "../../api/user";
+import { getUserCoinList } from "../../api/user";
 import UserCoinListContext from "../../contexts/userCoinListContext";
-import AuthContext from "../../contexts/authContext";
 
 //create useEffectHook to fetch JSON from getRequestFullCoinInfoList function API only once when the page is loaded and store it in const variable
 
 const DashboardPage = () => {
-  const { loggedUsername } = useContext(AuthContext);
   const { userCoinList, setUserCoinList } = useContext(UserCoinListContext);
   const [coinInfoList, setCoinInfoList] = useState(null);
 
@@ -23,9 +21,7 @@ const DashboardPage = () => {
 
       //filter remove all coins with IsTrading=false
       setCoinInfoList(arrayCoinsToSort.filter((coin) => coin.IsTrading));
-      const responseUserCoinList = await postUserCoinList({
-        username: loggedUsername,
-      });
+      const responseUserCoinList = await getUserCoinList();
 
       setUserCoinList(responseUserCoinList.data);
     };
@@ -33,9 +29,7 @@ const DashboardPage = () => {
     fetchCoinListData();
 
     const interval = setInterval(async () => {
-      const responseUserCoinList = await postUserCoinList({
-        username: loggedUsername,
-      });
+      const responseUserCoinList = await getUserCoinList();
       setUserCoinList(responseUserCoinList.data);
     }, 5000);
 

@@ -3,6 +3,7 @@ const {
   getCoinPriceLast24Hours,
   getCoinPrice,
 } = require("../api/cryptoCompareAPI");
+const sessions = require("../models/SessionModel");
 
 const updateCoinPrice = async (coinList) => {
   //iterate in coinList and create a array with coinSymbol using ',' as separator to pass to the API
@@ -10,7 +11,7 @@ const updateCoinPrice = async (coinList) => {
   const coinPriceList = await getCoinPrice(coinSymbolList, "USD");
 
   const coinListWithPrice = coinList.map((coin) => {
-    coin.price = coinPriceList[coin.coinSymbol]?.USD;
+    coin.price = coinPriceList[coin.coinSymbol]?.["USD"];
     return coin;
   });
 
@@ -60,12 +61,15 @@ const postCheckEmailAvaiable = async (req, res) => {
   }
 };
 
-const postRegisterNewCoin = async (req, res) => {
-  const [coinId, coinSymbol, username] = [
-    req.body.id,
-    req.body.symbol,
-    req.body.username,
-  ];
+const postAddCoin = async (req, res) => {
+  const [coinId, coinSymbol] = [req.body.id, req.body.symbol];
+
+  var sessionID = req.cookies.sessionId;
+  var username = await sessions.getUsernameBySessionID(sessionID);
+  if (!username) {
+    res.status(400).send("Username couldn't be found");
+    return;
+  }
 
   const userCoinList = await User.addCoin(coinId, coinSymbol, username);
   if (!userCoinList) {
@@ -77,12 +81,15 @@ const postRegisterNewCoin = async (req, res) => {
   res.status(200).send(userCoinList);
 };
 
-const postDeleteCoin = async (req, res) => {
-  const [coinId, coinSymbol, username] = [
-    req.body.id,
-    req.body.symbol,
-    req.body.username,
-  ];
+const deleteCoin = async (req, res) => {
+  const [coinId, coinSymbol] = [req.body.id, req.body.symbol];
+
+  var sessionID = req.cookies.sessionId;
+  var username = await sessions.getUsernameBySessionID(sessionID);
+  if (!username) {
+    res.status(400).send("Username couldn't be found");
+    return;
+  }
 
   const userCoinList = await User.deleteCoin(coinId, coinSymbol, username);
   if (!userCoinList) {
@@ -94,8 +101,13 @@ const postDeleteCoin = async (req, res) => {
   res.status(200).send(userCoinList);
 };
 
-const postGetUserCoinList = async (req, res) => {
-  const [username] = [req.body.username];
+const getUserCoinList = async (req, res) => {
+  var sessionID = req.cookies.sessionId;
+  var username = await sessions.getUsernameBySessionID(sessionID);
+  if (!username) {
+    res.status(400).send("Username couldn't be found");
+    return;
+  }
 
   const userCoinList = await User.getUserCoins(username);
   if (!userCoinList) {
@@ -111,7 +123,7 @@ module.exports = {
   postRegisterUser,
   postCheckUsernameAvaiable,
   postCheckEmailAvaiable,
-  postRegisterNewCoin,
-  postGetUserCoinList,
-  postDeleteCoin,
+  postAddCoin,
+  getUserCoinList,
+  deleteCoin,
 };

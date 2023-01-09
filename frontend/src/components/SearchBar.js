@@ -1,7 +1,6 @@
 import { useState, useContext } from "react";
 import CloseIcon from "./Icons/CloseIcon";
 import SearchIcon from "./Icons/SearchIcon";
-import AuthContext from "../contexts/authContext";
 import { addUserCoin } from "../api/user";
 
 const SearchBar = ({
@@ -10,7 +9,6 @@ const SearchBar = ({
   placeholder,
   onNewCoinCallback,
 }) => {
-  const { loggedUsername } = useContext(AuthContext);
   const [searchTerm, setSearchTerm] = useState("");
   var maxSuggestions = 6;
   const onSearchTermChange = (e) => {
@@ -29,12 +27,10 @@ const SearchBar = ({
     if (checkCoinIsTracked(coin)) {
       return;
     }
-    //in this code its possible for the user to add a coin to another user account if we dont check if loggedUsername and cookie match in the backend
     setSearchTerm("");
     var result = await addUserCoin({
       id: coin.Id,
       symbol: coin.Symbol,
-      username: loggedUsername,
     });
     if (result) {
       onNewCoinCallback(result.data);

@@ -2,11 +2,10 @@ import { useContext } from "react";
 import TrashButton from "./TrashButton";
 import UserCoinListContext from "../contexts/userCoinListContext";
 import AuthContext from "../contexts/authContext";
-import { postDeleteUserCoin } from "../api/user";
+import { deleteUserCoin } from "../api/user";
 
 const CoinCard = ({ id, imageUrl, symbol, price, name, price24Hours }) => {
   const { setUserCoinList } = useContext(UserCoinListContext);
-  const { loggedUsername } = useContext(AuthContext);
 
   function calculatePercentualChange(priceToday, priceYesterday) {
     if (priceYesterday === 0) return 0;
@@ -24,10 +23,9 @@ const CoinCard = ({ id, imageUrl, symbol, price, name, price24Hours }) => {
 
   const handleDeleteCoinRequest = async () => {
     try {
-      var result_coinDeleted = await postDeleteUserCoin({
+      var result_coinDeleted = await deleteUserCoin({
         id: id,
         symbol: symbol,
-        username: loggedUsername,
       });
       if (result_coinDeleted) {
         setUserCoinList(result_coinDeleted.data);
