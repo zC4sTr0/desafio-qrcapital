@@ -41,6 +41,9 @@ A simple and elegant website to select and track your favorite cryptocurrencies
 
 # How to run
 
+I deployed this application on DigitalOcean using ci/cd! 
+**If you want to test the application, just enter this website**: http://gabrielcastro.codes/
+
 To run this applications, you must have Docker installed in your computer.
 
 Read more about how to Install Docker here: [Docker Installation Guide](https://docs.docker.com/engine/install/)
